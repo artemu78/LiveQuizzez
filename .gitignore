@@ -1,3 +1,31 @@
+# Frontend (Vite + React)
+frontend/node_modules/
+frontend/dist/
+
+# Vite / Node: local env overrides (secrets)
+frontend/.env.local
+frontend/.env.*.local
+
+# Backend (Python)
+backend/venv/
+backend/.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+.eggs/
+
+# AWS SAM CLI build output (repo has template.yaml)
+.aws-sam/
+
+# OS / editor
+.DS_Store
+.idea/
 # Logs
 logs
 *.log

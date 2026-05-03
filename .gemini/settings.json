@@ -1,0 +1,17 @@
+{
+  "skills": {
+    "disabled": [
+      "remotion-best-practices",
+      "docker-compose-orchestration",
+      "docker-expert",
+      "playwright-best-practices",
+      "pdf",
+      "hw-lesson-7-checker",
+      "hw-lesson-2-checker-ai-for-devs",
+      "responsiveness-check",
+      "supabase-storage",
+      "recipe-create-presentation",
+      "express-rest-api"
+    ]
+  }
+}

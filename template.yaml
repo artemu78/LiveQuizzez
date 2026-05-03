@@ -1,0 +1,52 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-16.0
+Description: Quiz App Infrastructure
+
+Resources:
+  QuizResultsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: QuizResults
+      AttributeDefinitions:
+        - AttributeName: session_code
+          AttributeType: S
+      KeySchema:
+        - AttributeName: session_code
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+
+  # If we were using Lambda, we'd define functions here.
+  # Since we are using a Single Server (EC2), we define the Role for it.
+  
+  EC2InstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: QuizAppDynamoDBAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:PutItem
+                  - dynamodb:GetItem
+                  - dynamodb:UpdateItem
+                Resource: !GetAtt QuizResultsTable.Arn
+
+  EC2InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref EC2InstanceRole
+
+Outputs:
+  DynamoDBTableName:
+    Description: Quiz Results Table Name
+    Value: !Ref QuizResultsTable
